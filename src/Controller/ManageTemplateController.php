@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ManageTemplateController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="app_homepage")
      */
     public function homepage() {
         return new Response('homepage template gallery');
