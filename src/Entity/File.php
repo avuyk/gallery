@@ -5,12 +5,14 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FileRepository")
  */
 class File
 {
+    use TimestampableEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -37,6 +39,11 @@ class File
      * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="file")
      */
     private $categories;
+
+    /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $description;
 
     public function __construct()
     {
@@ -125,6 +132,18 @@ class File
             $this->categories->removeElement($category);
             $category->removeFile($this);
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
