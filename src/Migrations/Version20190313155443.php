@@ -37,6 +37,5 @@ final class Version20190313155443 extends AbstractMigration
 
         $this->addSql('DROP TABLE category_file');
         $this->addSql('DROP TABLE tag_file');
-        $this->addSql('DROP TABLE tegory');
     }
 }

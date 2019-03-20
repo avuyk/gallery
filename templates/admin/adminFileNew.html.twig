@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <h1>{{ title }}</h1>
+    <p>Upload a new file.</p>
+    {{ form(form) }}
+    <br><br><a href="{{ path('admin_home') }}">Back to Admin Home</a><br>
+{% endblock %}
