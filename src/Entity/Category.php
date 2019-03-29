@@ -39,6 +39,10 @@ class Category
     {
         return $this->id;
     }
+    public function setId(): ?int
+    {
+        return $this->id = 0;
+    }
 
     public function getCategoryName(): ?string
     {
