@@ -27,7 +27,7 @@ class AdminController extends AbstractController
     public function new(FileRepository $fileRepository)
     {
         $fileUpload = new File();
-        $fileUpload->setFileName(' name');
+        $fileUpload->setFileName('name');
 
         $form= $this->createFormBuilder($fileUpload)
             ->add('fileName', TextType::class)

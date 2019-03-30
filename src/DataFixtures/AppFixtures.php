@@ -24,23 +24,23 @@ class AppFixtures extends BaseFixture
         'transport',
     ];
 
-    private $currentCategory;
-
-    // Fill database with dummy data
-    public function loadData(ObjectManager $manager)
+    /**
+     * Fill database with dummy data
+     * @param ObjectManager $manager
+     */
+    public function loadData(ObjectManager $manager): void
     {
         // Create categories and create images in all categories
         foreach (self::$categoryNames as $categoryName)
         {
-            $this->currentCategory = $categoryName;
             $this->createManyWithAssociatedClass(File::class, Category::class, 30,
-                function (File $file, Category $category, $count) use ($manager)
+                function (File $file, Category $category, $count) use ($manager, $categoryName)
                 {
-                    $file->setFilePath($this->faker->image('public' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'gallery',
-                        $width = 640, $height = 480, $this->currentCategory, false))
-                        ->setFileName($this->faker->word . ' '.$this->currentCategory)
+                    $file->setFilePath($this->faker->image('public/images/gallery',
+                        $width = 640, $height = 480, $categoryName, false))
+                        ->setFileName($this->faker->word . ' ' . $categoryName)
                         ->setDescription($this->faker->sentence($nbWords = 12, $variableNbWords = true));
-                    $category->setCategoryName($this->currentCategory);
+                    $category->setCategoryName($categoryName);
                     // add an association from current Category object to current File object
                     $file->addCategory($category);
                 });
