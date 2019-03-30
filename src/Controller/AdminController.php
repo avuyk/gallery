@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
-
     /**
      * @Route("/admin", name="admin_home")
      */
@@ -28,12 +27,10 @@ class AdminController extends AbstractController
     public function new(FileRepository $fileRepository)
     {
         $fileUpload = new File();
-        $fileUpload->setFileName('dummy filename');
-        $fileUpload->setFilePath('dummy file path');
+        $fileUpload->setFileName('name');
 
         $form= $this->createFormBuilder($fileUpload)
             ->add('fileName', TextType::class)
-            ->add('filePath', TextType::class)
             ->add('tags', TextType::class)
             ->add('categories', TextType::class)
             ->add('save', SubmitType::class, ['label' => 'Upload File'])
