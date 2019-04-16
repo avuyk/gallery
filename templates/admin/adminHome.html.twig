@@ -3,6 +3,7 @@
 {% block body %}
     <h1>{{ title }}</h1>
     <p>Some form to manage templates.</p>
-    <a href="{{ path('add_file') }}">Add new file</a><br>
+    <a href="{{ path('admin_list_files') }}">View all files</a><br>
+    <a href="{{ path('admin_add_file') }}">Add a new file</a><br>
     <a href="{{ path('app_homepage') }}">Gallery Home</a><br>
 {% endblock %}

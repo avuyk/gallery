@@ -42,7 +42,7 @@ class AppFixtures extends BaseFixture
                         ->setDescription($this->faker->sentence($nbWords = 12, $variableNbWords = true));
                     $category->setCategoryName($categoryName);
                     // add an association from current Category object to current File object
-                    $file->addCategory($category);
+                    $file->setCategories($category);
                 });
         }
         $manager->flush();

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <h1>{{ title }}</h1>
+     <table class="table">
+        <thead>
+        <tr>
+            <th>Filename</th>
+            <th>File path</th>
+            <th>Category</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for file in files %}
+            <tr>
+                <td>{{ file.fileName }}</td>
+                <td>{{ file.filePath }}</td>
+                <td>{% for category in file.categories %}
+                 {{ category.categoryName }}{% if loop.last != true %} <br> {% endif %}
+                    {% endfor %}
+                </td>
+                <td>{{ file.description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br><br><a href="{{ path('admin_home') }}">Back to Admin Home</a><br>
+{% endblock %}

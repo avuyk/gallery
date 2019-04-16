@@ -31,11 +31,6 @@ class File
     private $filePath;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="file")
-     */
-    private $tags;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="file")
      */
     private $categories;
@@ -47,8 +42,7 @@ class File
 
     public function __construct()
     {
-        $this->tags = new ArrayCollection();
-        $this->categories = new ArrayCollection();
+         $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -81,34 +75,6 @@ class File
     }
 
     /**
-     * @return Collection|Tag[]
-     */
-    public function getTags(): Collection
-    {
-        return $this->tags;
-    }
-
-    public function addTag(Tag $tag): self
-    {
-        if (!$this->tags->contains($tag)) {
-            $this->tags[] = $tag;
-            $tag->addFile($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTag(Tag $tag): self
-    {
-        if ($this->tags->contains($tag)) {
-            $this->tags->removeElement($tag);
-            $tag->removeFile($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Category[]
      */
     public function getCategories(): Collection
@@ -116,10 +82,10 @@ class File
         return $this->categories;
     }
 
-    public function addCategory(Category $category): self
+    public function setCategories(Category $category): self
     {
         if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
+            $this->categories->add($category);
             $category->addFile($this);
         }
 
