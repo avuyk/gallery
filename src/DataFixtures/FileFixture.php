@@ -6,7 +6,7 @@ use App\Entity\Category;
 use App\Entity\File;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class AppFixtures extends BaseFixture
+class FileFixture extends BaseFixture
 {
     // Listing of categories to be created
     // Names must correspond with categories from http://lorempixel.com
@@ -33,7 +33,10 @@ class AppFixtures extends BaseFixture
         // Create categories and create images in all categories
         foreach (self::$categoryNames as $categoryName)
         {
-            $this->createManyWithAssociatedClass(File::class, Category::class, 30,
+            // get a random number that is biased towards the lower of two given numbers
+            $number = $this->faker->biasedNumberBetween(10, 25, function($x) { return 1 - sqrt($x); });
+
+            $this->createManyWithAssociatedClass(File::class, Category::class, $number,
                 function (File $file, Category $category, $count) use ($manager, $categoryName)
                 {
                     $file->setFilePath($this->faker->image('public/images/gallery',

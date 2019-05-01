@@ -25,3 +25,5 @@ Recreation of the database is needed because, when only reloading the fixtures, 
 
 Faker bundle fetches dummy images from http://lorempixel.com and saves them locally. 
 Via Fixtures it fills the database with the image paths, image descriptions and file names.
+
+

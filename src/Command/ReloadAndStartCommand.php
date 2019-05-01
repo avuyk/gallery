@@ -7,12 +7,12 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class StartCommand extends Command
+class ReloadAndStartCommand extends Command
 {
     protected function configure()
     {
         $this
-            ->setName('app:StartCommand')
+            ->setName('app:ReloadAndStartCommand')
             ->setDescription('Drop/Create Database and load Fixtures ....')
             ->setHelp('This command starts the app, it loads dummy data by recreating database, loading fixtures and starts the server to listen on localhost:8000. ');
     }

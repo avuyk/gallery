@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\File;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,6 +20,18 @@ class FileRepository extends ServiceEntityRepository
         parent::__construct($registry, File::class);
     }
 
+    /**
+     * @param string|null $term
+     */
+    public function getAllOrderedByQueryBuilder(): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->addSelect('c')
+            ;
+        return $qb
+            ->orderBy('c.createdAt', 'DESC')
+            ;
+    }
     // /**
     //  * @return File[] Returns an array of File objects
     //  */
