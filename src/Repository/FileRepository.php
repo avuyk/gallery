@@ -25,11 +25,9 @@ class FileRepository extends ServiceEntityRepository
      */
     public function getAllOrderedByQueryBuilder(): QueryBuilder
     {
-        $qb = $this->createQueryBuilder('c')
+        return $this->createQueryBuilder('c')
             ->addSelect('c')
-            ;
-        return $qb
-            ->orderBy('c.createdAt', 'DESC')
+            ->orderBy('c.updatedAt', 'DESC')
             ;
     }
     // /**

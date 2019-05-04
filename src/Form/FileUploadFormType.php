@@ -8,9 +8,10 @@ use App\Entity\Category;
 use App\Entity\File;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class FileUploadFormType extends AbstractType
 {
@@ -18,8 +19,13 @@ class FileUploadFormType extends AbstractType
     {
 
         $builder
-            ->add('filename', TextType::class, [
-                'help' => 'Use a unique file name.'
+            ->add('imageFile', FileType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '5M'
+                    ])
+                ]
             ])
             ->add( 'filepath')
             ->add('description')

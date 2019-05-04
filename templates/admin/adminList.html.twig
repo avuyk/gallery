@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'content_base.html.twig' %}
 {% block title %}{{ title }}{% endblock %}
-{% block body %}
+{% block content_body %}
     <h1>{{ title }}</h1>
      <table class="table">
         <thead>
@@ -9,7 +9,7 @@
             <th>File path</th>
             <th>Category</th>
             <th>Description</th>
-            <th>Date added</th>
+            <th width="150">Added</th>
         </tr>
         </thead>
         <tbody>
@@ -22,7 +22,7 @@
                     {% endfor %}
                 </td>
                 <td>{{ file.description }}</td>
-                <td>{{ file.updatedAt|date('d-m-Y') }}</td>
+                <td>{{ file.updatedAt|ago }}</td>
             </tr>
         {% endfor %}
         </tbody>

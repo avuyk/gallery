@@ -42,7 +42,8 @@ class FileFixture extends BaseFixture
                     $file->setFilePath($this->faker->image('public/images/gallery',
                         $width = 640, $height = 480, $categoryName, false))
                         ->setFileName($this->faker->word . ' ' . $categoryName)
-                        ->setDescription($this->faker->sentence($nbWords = 12, $variableNbWords = true));
+                        ->setDescription($this->faker->sentence($nbWords = 12, $variableNbWords = true))
+                        ->setUpdatedAt($this->faker->dateTimeBetween('-4 years', 'now'));
                     $category->setCategoryName($categoryName);
                     // add an association from current Category object to current File object
                     $file->setCategories($category);

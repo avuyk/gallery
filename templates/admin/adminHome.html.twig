@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'content_base.html.twig' %}
 {% block title %}{{ title }}{% endblock %}
-{% block body %}
+{% block content_body %}
     <h1>{{ title }}</h1>
     <a href="{{ path('admin_list_files') }}">View all files</a><br>
     <a href="{{ path('admin_add_file') }}">Add a new file</a><br>
