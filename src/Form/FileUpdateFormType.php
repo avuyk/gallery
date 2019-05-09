@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotNull;
 
-class FileUploadFormType extends AbstractType
+class FileUpdateFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -45,8 +45,7 @@ class FileUploadFormType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'categoryName',
                 'multiple' => 'true',
-                'expanded' => 'true',
-                'by_reference' => 'false'
+                'expanded' => 'true'
             ])
         ;
     }

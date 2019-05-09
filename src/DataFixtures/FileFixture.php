@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
-use App\Entity\File;
+use App\Entity\ImageFile;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class FileFixture extends BaseFixture
@@ -34,16 +34,16 @@ class FileFixture extends BaseFixture
         foreach (self::$categoryNames as $categoryName)
         {
             // get a random number that is biased towards the lower of two given numbers
-            $number = $this->faker->biasedNumberBetween(10, 25, function($x) { return 1 - sqrt($x); });
+            $number = $this->faker->biasedNumberBetween(2, 12, function($x) { return 1 - sqrt($x); });
 
-            $this->createManyWithAssociatedClass(File::class, Category::class, $number,
-                function (File $file, Category $category, $count) use ($manager, $categoryName)
+            $this->createManyWithAssociatedClass(ImageFile::class, Category::class, $number,
+                function (ImageFile $file, Category $category, $count) use ($manager, $categoryName)
                 {
-                    $file->setFilePath($this->faker->image('public/images/gallery',
+                    $file->setImageFileName($this->faker->image('public/images/gallery',
                         $width = 640, $height = 480, $categoryName, false))
-                        ->setFileName($this->faker->word . ' ' . $categoryName)
-                        ->setDescription($this->faker->sentence($nbWords = 12, $variableNbWords = true))
-                        ->setUpdatedAt($this->faker->dateTimeBetween('-4 years', 'now'));
+                        ->setImageFileTitle($this->faker->word)
+                        ->setImageFileDescription($this->faker->sentence($nbWords = 12, $variableNbWords = true))
+                        ->setUpdatedAt($this->faker->dateTimeBetween('-3 months', 'now'));
                     $category->setCategoryName($categoryName);
                     // add an association from current Category object to current File object
                     $file->setCategories($category);

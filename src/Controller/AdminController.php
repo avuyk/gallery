@@ -1,10 +1,12 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\File;
+use App\Entity\Category;
+use App\Entity\ImageFile;
+use App\Form\FileUpdateFormType;
 use App\Form\FileUploadFormType;
 use App\Repository\CategoryRepository;
-use App\Repository\FileRepository;
+use App\Repository\ImageFileRepository;
 use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -16,12 +18,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     private $categoryRepository;
-    private $fileRepository;
+    private $imageFileRepository;
 
-    public function __construct(CategoryRepository $categoryRepository, FileRepository $fileRepository)
+    public function __construct(CategoryRepository $categoryRepository, ImageFileRepository $imageFileRepository)
     {
         $this->categoryRepository = $categoryRepository;
-        $this->fileRepository = $fileRepository;
+        $this->imageFileRepository = $imageFileRepository;
     }
 
     /**
@@ -38,7 +40,8 @@ class AdminController extends AbstractController
      */
     public function new(EntityManagerInterface $entityManager, Request $request, UploaderHelper $uploaderHelper)
     {
-        $form = $this->createForm(FileUploadFormType::class);
+        $file = new ImageFile();
+        $form = $this->createForm(FileUploadFormType::class, $file);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
 
@@ -46,17 +49,18 @@ class AdminController extends AbstractController
             $uploadedFile = $form['imageFile']->getData();
 
             if ($uploadedFile) {
-                $newFilename= $uploaderHelper->uploadFile($uploadedFile);
+                $newFilename= $uploaderHelper->uploadImageFile($uploadedFile);
 
-                /** @var File $file */
+                 /** @var ImageFile $file */
                 $file = $form->getData();
-                $file->setFileName($newFilename);
+                $file->setImageFileName($newFilename);
+                $file->setImageFileTitle($uploaderHelper->getImageFileTitle($uploadedFile));
 
                 $this->addFlash('success', 'File uploaded.');
                 $entityManager->persist($file);
                 $entityManager->flush();
             }
-            return($this->redirectToRoute('admin_add_file'));
+            return($this->redirectToRoute('admin_home'));
         }
         return $this->render('admin/adminFileNew.html.twig', [
             'uploadForm' => $form->createView(),
@@ -64,12 +68,58 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/admin/file/{id}/edit", name="admin_file_edit")
+     */
+    public function edit(ImageFile $file, EntityManagerInterface $entityManager, Request $request, UploaderHelper $uploaderHelper)
+    {
+       // dd($file->getCategories());
+
+        $form = $this->createForm(FileUpdateFormType::class, $file);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form['imageFile']->getData();
+
+            if ($uploadedFile) {
+                $newFilename= $uploaderHelper->uploadImageFile($uploadedFile);
+
+                /** @var ImageFile $file */
+                $file = $form->getData();
+                $file->setImageFileName($newFilename);
+                $file->setImageFileTitle($uploaderHelper->getImageFileTitle($uploadedFile));
+
+                $this->addFlash('success', 'Properties updated.');
+                $entityManager->persist($file);
+                $entityManager->flush();
+            }
+
+            return($this->redirectToRoute('admin_file_edit', [
+                'id' => $file->getId(),
+            ]));
+        }
+        return $this->render('admin/adminFileEdit.html.twig', [
+            'uploadForm' => $form->createView(),
+            'title' => 'Image properties',
+        ]);
+    }
+
+    /**
+     * @Route("/admin/file/{id}/delete)", name="admin_file_delete")
+     */
+    public function delete(PaginatorInterface $paginator, Request $request)
+    {
+        // todo delete logic
+        return $this->render('admin/adminHome.html.twig');
+    }
      /**
-     * @Route("/admin/file/list", name="admin_list_files")
+     * @Route("/admin/file/manage", name="admin_manage_files")
      */
     public function list(PaginatorInterface $paginator, Request $request) {
 
-        $queryBuilder = $this->fileRepository->getAllOrderedByQueryBuilder();
+        $queryBuilder = $this->imageFileRepository->getAllOrderedByQueryBuilder();
         $query = $queryBuilder->getQuery();
 
         $pagination = $paginator->paginate(
@@ -78,8 +128,12 @@ class AdminController extends AbstractController
             10/*limit per page*/
         );
 
-        return $this->render('admin/adminList.html.twig', [
-            'title' => 'Available files',
+        $pagination->setCustomParameters([
+            'size' => 'small',
+        ]);
+
+        return $this->render('admin/manageFile.html.twig', [
+            'title' => 'Manage files',
             'pagination' => $pagination
         ]);
     }

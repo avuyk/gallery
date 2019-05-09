@@ -1,0 +1,6 @@
+.fa-pencil::before {
+    content: "\f303";
+}
+.fa-trash::before {
+    content: "\f2ed";
+}

@@ -26,13 +26,13 @@ class Category
     private $categoryName;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\File", inversedBy="categories")
+     * @ORM\ManyToMany(targetEntity="ImageFile", mappedBy="categories")
      */
-    private $file;
+    private $ImageFile;
 
     public function __construct()
     {
-        $this->file = new ArrayCollection();
+        $this->ImageFile = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,28 +53,30 @@ class Category
     }
 
     /**
-     * @return Collection|File[]
+     * @return Collection|ImageFile[]
      */
-    public function getFile(): Collection
+    public function getImageFile(): Collection
     {
-        return $this->file;
+        return $this->ImageFile;
     }
 
-    public function addFile(File $file): self
+    public function addImageFile(ImageFile $imageFile): self
     {
-        if (!$this->file->contains($file)) {
-            $this->file[] = $file;
+        if (!$this->ImageFile->contains($imageFile)) {
+            $this->ImageFile[] = $imageFile;
         }
 
         return $this;
     }
 
-    public function removeFile(File $file): self
+    public function removeImageFile(ImageFile $imageFile)
     {
-        if ($this->file->contains($file)) {
-            $this->file->removeElement($file);
+        if (!$this->ImageFile->contains($imageFile)) {
+            return;
         }
-
+        $this->ImageFile->removeElement($imageFile);
+        // not needed for persistence, just keeping both sides in sync
+        $imageFile->removeCategory($this);
         return $this;
     }
 }

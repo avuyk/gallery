@@ -3,11 +3,14 @@
 {% block title %}{{ title }}{% endblock %}
 {% block content_body %}
     <h1>{{ title }}</h1>
-    <p>Show it to the world!</p>
+    <p>...and show it to the world!</p>
     {{ form_start(uploadForm, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_row(uploadForm.imageFile) }}
-    {{ form_row(uploadForm.description) }}
-    {{ form_row(uploadForm.filepath) }}
+    {{ form_row(uploadForm.imageFile, {
+        'attr': {
+            'placeholder': 'Select an image file'
+        }
+    }) }}
+    {{ form_row(uploadForm.imageFileDescription) }}
     {{ form_row(uploadForm.categories) }}
     <button type="submit" class="btn btn-primary mt-3">Upload</button>
     {{ form_end(uploadForm) }}
