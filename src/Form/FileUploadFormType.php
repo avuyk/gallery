@@ -9,6 +9,8 @@ use App\Entity\ImageFile;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
@@ -39,14 +41,19 @@ class FileUploadFormType extends AbstractType
                 'constraints' => $imageConstraints,
                 'disabled' => $isEdit
             ])
-            ->add('imageFileTitle')
-            ->add('imageFileDescription')
+            ->add('imageFileTitle', TextType::class, [
+                'label' => 'Title',
+                'required' => false,
+            ])
+            ->add('imageFileDescription', TextareaType::class, [
+                'label' => 'Description',
+                'required' => false,
+            ])
             ->add('categories', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'categoryName',
                 'multiple' => 'true',
                 'expanded' => 'true',
-                'by_reference' => 'false'
             ])
         ;
     }

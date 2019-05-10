@@ -15,5 +15,6 @@
 .idea/
 /public/images/gallery
 ###> liip/imagine-bundle ###
-/public/media/cache/
+/public/images/media/cache/
 ###< liip/imagine-bundle ###
+

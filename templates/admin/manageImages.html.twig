@@ -1,19 +1,16 @@
 {% extends 'content_base.html.twig' %}
 {% block title %}{{ title }}{% endblock %}
 {% block content_body %}
+    <a href="{{ path('admin_add_file') }}" class="btn btn-primary float-right mt-5">
+        New image<span class="fas fa-upload ml-3"></span>
+    </a>
+
     <h1>{{ title }}</h1>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="{{ path('admin_home') }}">Back to Admin Home</a>
-        </li>
-        <li class="list-group-item">
-            <a href="{{ path('admin_add_file') }}">New File</a>
-        </li>
-    </ul>
-     <table class="table">
+    <a href="{{ path('admin_home') }}">Admin Home</a>
+    <table class="table mt-4">
         <thead>
         <tr>
-            <th></th>
+            <th>Image</th>
             <th>Title</th>
             <th>Description</th>
             <th>Category</th>
@@ -26,7 +23,7 @@
         {% for imageFile in pagination %}
             <tr>
                 <td><a href="{{ uploaded_asset(imageFile.imageFilePath) }}" target="_blank">
-                        <img class="article-img" src="{{ uploaded_asset(imageFile.imageFilePath)|imagine_filter('squared_thumbnail_50') }}"
+                        <img class="article-img" src="{{ imageFile.imageFilePath|imagine_filter('squared_thumbnail_50') }}"
                              alt="thumbnail">
                     </a>
                 </td>
@@ -44,7 +41,6 @@
                         <span class="fas fa-pencil"></span>
                     </a>
                     <br>
-
                     <a href="{{ path('admin_file_delete', {
                         id: imageFile.id
                     }) }}">

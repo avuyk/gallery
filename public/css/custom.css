@@ -4,3 +4,7 @@
 .fa-trash::before {
     content: "\f2ed";
 }
+.fa-upload::before {
+    content: "\f093";
+}
+

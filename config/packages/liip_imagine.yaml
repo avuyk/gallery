@@ -3,6 +3,21 @@ liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"
 
+    loaders:
+        public_uploads_adapter:
+            flysystem:
+                filesystem_service: oneup_flysystem.public_uploads_filesystem_filesystem
+    data_loader: public_uploads_adapter
+
+    resolvers:
+        flysystem_resolver:
+            flysystem:
+                filesystem_service: oneup_flysystem.public_uploads_filesystem_filesystem
+                cache_prefix: media/cache
+                root_url: '%uploads_base_url%'
+    cache: flysystem_resolver
+
+
     filter_sets:
         squared_thumbnail_50:
             filters:

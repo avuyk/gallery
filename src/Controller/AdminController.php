@@ -1,9 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Entity\ImageFile;
-use App\Form\FileUpdateFormType;
 use App\Form\FileUploadFormType;
 use App\Repository\CategoryRepository;
 use App\Repository\ImageFileRepository;
@@ -30,7 +28,7 @@ class AdminController extends AbstractController
      * @Route("/admin", name="admin_home")
      */
     public function adminHome() {
-        return $this->render('admin/adminHome.html.twig',[
+        return $this->render('admin/admin.html.twig',[
             'title'=>'Admin Home',
         ]);
     }
@@ -54,15 +52,15 @@ class AdminController extends AbstractController
                  /** @var ImageFile $file */
                 $file = $form->getData();
                 $file->setImageFileName($newFilename);
-                $file->setImageFileTitle($uploaderHelper->getImageFileTitle($uploadedFile));
+                $file->setImageFileTitle($uploaderHelper->getImageFileTitle($uploadedFile, $file));
 
-                $this->addFlash('success', 'File uploaded.');
+                $this->addFlash('success', 'Thanks for your image!');
                 $entityManager->persist($file);
                 $entityManager->flush();
             }
-            return($this->redirectToRoute('admin_home'));
+            return($this->redirectToRoute('admin_manage_files'));
         }
-        return $this->render('admin/adminFileNew.html.twig', [
+        return $this->render('admin/newImage.html.twig', [
             'uploadForm' => $form->createView(),
             'title' => 'Upload your art',
         ]);
@@ -75,34 +73,25 @@ class AdminController extends AbstractController
     {
        // dd($file->getCategories());
 
-        $form = $this->createForm(FileUpdateFormType::class, $file);
+        $form = $this->createForm(FileUploadFormType::class, $file);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
 
-            /** @var UploadedFile $uploadedFile */
-            $uploadedFile = $form['imageFile']->getData();
-
-            if ($uploadedFile) {
-                $newFilename= $uploaderHelper->uploadImageFile($uploadedFile);
-
                 /** @var ImageFile $file */
                 $file = $form->getData();
-                $file->setImageFileName($newFilename);
-                $file->setImageFileTitle($uploaderHelper->getImageFileTitle($uploadedFile));
-
-                $this->addFlash('success', 'Properties updated.');
+                $file->setImageFileTitle($uploaderHelper->normalizeImageTitle($file->getImageFileTitle()));
+                $this->addFlash('success', sprintf('Hi, you updated %s!', $file->getImageFileTitle()));
                 $entityManager->persist($file);
                 $entityManager->flush();
-            }
 
-            return($this->redirectToRoute('admin_file_edit', [
+            return($this->redirectToRoute('admin_manage_files', [
                 'id' => $file->getId(),
             ]));
         }
-        return $this->render('admin/adminFileEdit.html.twig', [
+        return $this->render('admin/editImageProps.html.twig', [
             'uploadForm' => $form->createView(),
-            'title' => 'Image properties',
+            'title' => 'Edit properties',
         ]);
     }
 
@@ -112,7 +101,7 @@ class AdminController extends AbstractController
     public function delete(PaginatorInterface $paginator, Request $request)
     {
         // todo delete logic
-        return $this->render('admin/adminHome.html.twig');
+        return $this->render('admin/admin.html.twig');
     }
      /**
      * @Route("/admin/file/manage", name="admin_manage_files")
@@ -127,13 +116,12 @@ class AdminController extends AbstractController
             $request->query->getInt('page', 1)/*page number*/,
             10/*limit per page*/
         );
-
         $pagination->setCustomParameters([
             'size' => 'small',
         ]);
 
-        return $this->render('admin/manageFile.html.twig', [
-            'title' => 'Manage files',
+        return $this->render('admin/manageImages.html.twig', [
+            'title' => 'Manage images',
             'pagination' => $pagination
         ]);
     }

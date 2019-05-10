@@ -24,6 +24,10 @@ class AppExtension extends AbstractExtension implements ServiceSubscriberInterfa
         ];
     }
 
+    /**
+     * @param string $path
+     * @return string public path to an asset without thumbnailing
+     */
     public function getUploadedAssetPath(string $path): string
     {
         return $this->container

@@ -72,16 +72,6 @@ class ImageFile
         return $this->categories;
     }
 
-    public function setCategories(Category $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-            $category->addImageFile($this);
-        }
-
-        return $this;
-    }
-
     public function removeCategory(Category $category)
     {
         if (!$this->categories->contains($category)) {
@@ -91,7 +81,7 @@ class ImageFile
         $category->removeImageFile($this);
     }
 
-    public function addCategories(Category $category)
+    public function addCategory(Category $category)
     {
         if ($this->categories->contains($category)) {
             return;

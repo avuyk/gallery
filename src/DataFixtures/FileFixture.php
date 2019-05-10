@@ -45,8 +45,7 @@ class FileFixture extends BaseFixture
                         ->setImageFileDescription($this->faker->sentence($nbWords = 12, $variableNbWords = true))
                         ->setUpdatedAt($this->faker->dateTimeBetween('-3 months', 'now'));
                     $category->setCategoryName($categoryName);
-                    // add an association from current Category object to current File object
-                    $file->setCategories($category);
+                    $file->addCategory($category);
                 });
         }
         $manager->flush();
