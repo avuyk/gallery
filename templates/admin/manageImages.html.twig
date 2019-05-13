@@ -21,7 +21,7 @@
         </thead>
         <tbody>
         {% for imageFile in pagination %}
-            <tr>
+            <tr class="js-file-item">
                 <td><a href="{{ uploaded_asset(imageFile.imageFilePath) }}" target="_blank">
                         <img class="article-img" src="{{ imageFile.imageFilePath|imagine_filter('squared_thumbnail_50') }}"
                              alt="thumbnail">
@@ -41,9 +41,12 @@
                         <span class="fas fa-pencil"></span>
                     </a>
                     <br>
-                    <a href="{{ path('admin_file_delete', {
-                        id: imageFile.id
-                    }) }}">
+                    <a href="#"
+                        class="js-delete-image"
+                        data-url="{{ path('admin_file_delete', {
+                            id: imageFile.id
+                        }) }}"
+                    >
                         <span class="fas fa-trash"></span>
                     </a>
                 </td>

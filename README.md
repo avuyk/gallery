@@ -1,29 +1,35 @@
-# gallery
-WIP gallery
-
-**Gallery to show image files, made in Symfony.**
+# Gallery
+WIP **Simple gallery to show image files**
 
 **Overview**
 
-* A home page with a category listing, linked to paginated category pages with a thumbnail gallery of image files. 
-* The thumbnails are linked to full size show pages. 
-* An admin section to upload images and set description.
+* On the home page a category listing.
+* This category listing is linked to category pages.
+* The category pages are filled with images.
+* The images are linked to full size show pages.
+* In the admin section, images and users can be managed.
 
 **Some features**
-* Auto fill database with dummy data for development and showcasing. 
-* Admin and user login required. 
-* Search on keywords. 
-* Bootstrapped for all devices. 
+* Built with Symfony 4
+* Auto fill database with dummy data for development and showcasing.
+* Admin and user login required.
+* Search on keywords.
+* Bootstrapped for all devices.
 
 **Getting started**
 
-Use command: bin/console app:ReloadAndStart 
-This command deletes all old images from /images/gallery, drops the old database if present, recreates a database with migrations, fills the database with fake data, and starts a server at http://localhost:8000 
-*The process takes several minutes for retrieving image files and saving them locally.*
- 
-Recreation of the database is needed because, when only reloading the fixtures, the id of tabel category_file keeps auto incrementing on top of old id's. Tabel category_file is a junction table without entity, that Doctrine generates and uses for the many-to-many relationship between files and categories.
+`composer install`
 
-Faker bundle fetches dummy images from http://lorempixel.com and saves them locally. 
+To enable the (mandatory) use of a mysql database, copy .env to .env.local and change this line:
+`DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/gallery_125400`.
+Set `db_user` and `db_password` to your local mysql login credentials.
+
+`bin/console app:ReloadAndStart`
+
+This command deletes all old images from /images/gallery, drops the old database if present, recreates a database with migrations, fills the database with fake data, and starts a server at http://localhost:8000
+*This process takes several minutes for retrieving image files and saving them locally.*
+
+Recreation of the database is needed with reloading. When only reloading the fixtures, the id of tabel category_file keeps auto incrementing on top of old id's. Tabel image_category is a join table without entity, that Doctrine generates and uses for the many-to-many relationship between ImageFile and Category.
+
+Faker bundle fetches dummy images from http://lorempixel.com and saves them locally.
 Via Fixtures it fills the database with the image paths, image descriptions and file names.
-
-

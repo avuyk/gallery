@@ -96,14 +96,20 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/file/{id}/delete)", name="admin_file_delete")
+     * @Route("/admin/file/{id}/delete)", name="admin_file_delete", methods={"DELETE"})
      */
-    public function delete(PaginatorInterface $paginator, Request $request)
+    public function deleteImageFile(ImageFile $imageFile, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager)
     {
-        // todo delete logic
-        return $this->render('admin/admin.html.twig');
+        //$this->denyAccessUnlessGranted('MANAGE', $imageFile);
+        // todo use a Doctrine transaction to make sure file is deleted
+        $entityManager->remove($imageFile);
+        $entityManager->flush();
+        $uploaderHelper->deleteImageFile('images'.$imageFile->getImageFilePath());
+        return new Response(null, 204);
     }
-     /**
+
+
+    /**
      * @Route("/admin/file/manage", name="admin_manage_files")
      */
     public function list(PaginatorInterface $paginator, Request $request) {
