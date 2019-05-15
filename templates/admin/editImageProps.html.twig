@@ -15,3 +15,7 @@
     {{ form_end(uploadForm) }}
     <br><br><a href="{{ path('admin_manage_files') }}">Manage Images</a><br>
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/admin_image_files.js') }}"></script>
+{% endblock %}

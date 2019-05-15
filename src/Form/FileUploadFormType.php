@@ -44,6 +44,9 @@ class FileUploadFormType extends AbstractType
             ->add('imageFileTitle', TextType::class, [
                 'label' => 'Title',
                 'required' => false,
+                'attr' => [
+                    'class' => 'js-set-title'
+                 ],
             ])
             ->add('imageFileDescription', TextareaType::class, [
                 'label' => 'Description',
@@ -64,6 +67,4 @@ class FileUploadFormType extends AbstractType
            'data_class' => ImageFile::class
         ]);
     }
-
-
 }

@@ -183,6 +183,18 @@
             "ref": "05daf6b214e54aed4089f3480f944a67ac3a7889"
         }
     },
+    "squizlabs/php_codesniffer": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "0dc9cceda799fd3a08b96987e176a261028a3709"
+        },
+        "files": [
+            "./phpcs.xml.dist"
+        ]
+    },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
         "recipe": {

@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\ImageFile;
+use App\Exception\CouldNotSaveImageFileException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -21,7 +23,22 @@ class ImageFileRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param ImageFile $imageFile
+     * @throws CouldNotSaveImageFileException
+     */
+    public function save(ImageFile $imageFile): void
+    {
+        try {
+            $this->getEntityManager()->persist($imageFile);
+            $this->getEntityManager()->flush();
+        } catch (ORMException $exception) {
+            throw CouldNotSaveImageFileException::forError($exception);
+        }
+    }
+
+    /**
      * @param string|null $term
+     * @return QueryBuilder
      */
     public function getAllOrderedByQueryBuilder(): QueryBuilder
     {

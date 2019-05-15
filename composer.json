@@ -25,6 +25,7 @@
         "symfony/yaml": "4.2.*"
     },
     "config": {
+        "bin-dir": "bin",
         "preferred-install": {
             "*": "dist"
         },
@@ -74,6 +75,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.1",
         "easycorp/easy-log-handler": "^1.0.7",
         "sensiolabs/security-checker": "^5.0",
+        "squizlabs/php_codesniffer": "^3.4",
         "symfony/debug-bundle": "*",
         "symfony/maker-bundle": "^1.11",
         "symfony/monolog-bundle": "^3.0",

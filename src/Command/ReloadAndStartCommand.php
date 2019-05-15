@@ -14,7 +14,8 @@ class ReloadAndStartCommand extends Command
         $this
             ->setName('app:ReloadAndStartCommand')
             ->setDescription('Drop/Create Database and load Fixtures ....')
-            ->setHelp('This command starts the app, it loads dummy data by recreating database, loading fixtures and starts the server to listen on localhost:8000. ');
+            ->setHelp('This command starts the app, it loads dummy data by recreating database, 
+            loading fixtures and starts the server to listen on localhost:8000. ');
     }
 
     /**
@@ -47,9 +48,10 @@ class ReloadAndStartCommand extends Command
         ]);
 
         $files = glob('public/images/gallery/*');
-        foreach($files as $file){
-            if(is_file($file))
+        foreach ($files as $file) {
+            if (is_file($file)) {
                 unlink($file);
+            }
         }
 
 
@@ -92,6 +94,5 @@ class ReloadAndStartCommand extends Command
 
         $options = array('command' => 'server:run',"--no-interaction" => true);
         $application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
-
     }
 }

@@ -31,22 +31,31 @@ class FileFixture extends BaseFixture
     public function loadData(ObjectManager $manager): void
     {
         // Create categories and create images in all categories
-        foreach (self::$categoryNames as $categoryName)
-        {
+        foreach (self::$categoryNames as $categoryName) {
             // get a random number that is biased towards the lower of two given numbers
-            $number = $this->faker->biasedNumberBetween(2, 12, function($x) { return 1 - sqrt($x); });
+            $number = $this->faker->biasedNumberBetween(2, 12, function ($x) {
+                return 1 - sqrt($x);
+            });
 
-            $this->createManyWithAssociatedClass(ImageFile::class, Category::class, $number,
-                function (ImageFile $file, Category $category, $count) use ($manager, $categoryName)
-                {
-                    $file->setImageFileName($this->faker->image('public/images/gallery',
-                        $width = 640, $height = 480, $categoryName, false))
+            $this->createManyWithAssociatedClass(
+                ImageFile::class,
+                Category::class,
+                $number,
+                function (ImageFile $file, Category $category, $count) use ($manager, $categoryName) {
+                    $file->setImageFileName($this->faker->image(
+                        'public/images/gallery',
+                        $width = 640,
+                        $height = 480,
+                        $categoryName,
+                        false
+                    ))
                         ->setImageFileTitle($this->faker->word)
                         ->setImageFileDescription($this->faker->sentence($nbWords = 12, $variableNbWords = true))
                         ->setUpdatedAt($this->faker->dateTimeBetween('-3 months', 'now'));
                     $category->setCategoryName($categoryName);
                     $file->addCategory($category);
-                });
+                }
+            );
         }
         $manager->flush();
     }

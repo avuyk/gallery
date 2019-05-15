@@ -57,3 +57,7 @@
     </table>
     {{ knp_pagination_render(pagination) }}
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/admin_image_files.js') }}"></script>
+{% endblock %}

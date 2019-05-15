@@ -12,16 +12,21 @@
     }) }}
     {{ form_row(uploadForm.imageFileTitle, {
         'attr': {
-            'placeholder': 'Optional, filename is default'
+            'placeholder': 'Optional: filename is default'
         }
     }) }}
     {{ form_row(uploadForm.imageFileDescription, {
         'attr': {
-            'placeholder': 'What is your art about?'
+            'placeholder': 'What is your art all about?'
         }
     }) }}
     {{ form_row(uploadForm.categories) }}
+    <div id="checkbox-validation"></div>
     <button type="submit" class="btn btn-primary mt-3">Upload</button>
     {{ form_end(uploadForm) }}
     <br><br><a href="{{ path('admin_manage_files') }}">Manage images</a><br>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/admin_image_files.js') }}"></script>
 {% endblock %}
