@@ -1,3 +1,22 @@
+/* Elements */
+html {
+    background-color: rgb(248, 249, 250);
+}
+h1 {
+    font-size: 2rem;
+    margin-top: 1rem;
+}
+img{
+    white-space:pre
+}
+img[alt] {
+    font-size: .7rem;
+}
+
+.alert-success, .alert-danger, .alert-info {
+    margin-top: 1rem;
+}
+
 .fa-pencil::before {
     content: "\f303";
 }
@@ -11,18 +30,68 @@
     content: "\f110";
 }
 
-/* 'New image' and 'Edit properties' forms */
+/* Navbar */
+.navbar-brand {
+    font-weight: 600;
+    line-height: 1rem;
+    margin-top: 1rem;
+}
+
+/* Body */
+a.newbutton {
+    margin-top: 1.5rem;
+}
+
+/* Footer */
+footer {
+    clear: both;
+    text-align: left;
+    background-color: rgb(248, 249, 250);
+    height: 100px;
+}
+footer div {
+    text-align: center;
+    font-size: small;
+}
+footer p {
+    position: relative;
+    top: 1rem;
+}
+
+/* Forms: 'New image' and 'Edit properties' */
+.edit-image {
+    padding-bottom: 3rem;
+}
+.custom-file {
+    margin-top: 1rem;
+}
 .form-check {
+    background-color: #F8F9FA;
+    border-radius: .15rem;
     display: inline-block;
     margin-right: .7rem;
     margin-top: .3rem;
-    padding: .3rem .7rem .2rem 2rem;
     overflow: auto;
-    background-color: rgb(248, 248, 248);
-    border-radius: .25rem;
+    padding: .3rem .7rem .2rem 2rem;
 }
 .form-check-label {
+    bottom: .1rem;
     margin-bottom: 0;
     position: relative;
-    bottom: .1rem;
+}
+button {
+    margin-top: 1rem;
+}
+button.close {
+    margin: 0;
+}
+/* Media Queries */
+@media (min-width: 992px) {
+    /* Navbar */
+nav.navbar {
+    padding-left: 5rem;
+}
+#navbarSupportedContent {
+    padding-left: 5rem;
+}
 }

@@ -13,7 +13,6 @@ use Knp\Component\Pager\PaginatorInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,16 +31,6 @@ class AdminController extends AbstractController
         $this->categoryRepository = $categoryRepository;
         $this->imageFileRepository = $imageFileRepository;
         $this->logger = $logger;
-    }
-
-    /**
-     * @Route("/admin", name="admin_home")
-     */
-    public function adminHome()
-    {
-        return $this->render('admin/admin.html.twig', [
-            'title' => 'Admin Home',
-        ]);
     }
 
     /**
@@ -95,7 +84,6 @@ class AdminController extends AbstractController
         Request $request,
         UploaderHelper $uploaderHelper
     ) {
-       // dd($file->getCategories());
 
         $form = $this->createForm(FileUploadFormType::class, $file);
 

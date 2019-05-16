@@ -1,19 +1,28 @@
 {% if app.request.hasPreviousSession %}
     {% for flashMessage in app.session.flashbag.get('success') %}
-        <div class="alert alert-dismissable alert-success">
-            {{ flashMessage|trans }}<br>
-        </div>
+        <div class="alert alert-success" role="alert">
+            {{ flashMessage|trans }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('error') %}
-        <div class="alert alert-dismissable alert-danger">
-            {{ flashMessage|trans }}<br>
+        <div class="alert alert-danger" role="alert">
+            {{ flashMessage|trans }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('info') %}
-        <div class="alert alert-dismissable alert-info">
-            {{ flashMessage|trans }}<br>
+        <div class="alert alert-info" role="alert">
+            {{ flashMessage|trans }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     {% endfor %}
 {% endif %}

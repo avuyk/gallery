@@ -1,12 +1,12 @@
 {% extends 'content_base.html.twig' %}
-{% block title %}{{ title }}{% endblock %}
+{% block title %}
+    {{ title }}
+{% endblock %}
 {% block content_body %}
-    <a href="{{ path('admin_add_file') }}" class="btn btn-primary float-right mt-5">
+    <a href="{{ path('admin_add_file') }}" class="newbutton btn btn-primary float-right">
         New image<span class="fas fa-upload ml-3"></span>
     </a>
-
     <h1>{{ title }}</h1>
-    <a href="{{ path('admin_home') }}">Admin Home</a>
     <table class="table mt-4">
         <thead>
         <tr>
@@ -56,8 +56,4 @@
         </tbody>
     </table>
     {{ knp_pagination_render(pagination) }}
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/admin_image_files.js') }}"></script>
 {% endblock %}

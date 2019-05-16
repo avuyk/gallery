@@ -37,6 +37,7 @@ class FileUploadFormType extends AbstractType
 
         $builder
             ->add('imageFile', FileType::class, [
+                'label' => false,
                 'mapped' => false,
                 'constraints' => $imageConstraints,
                 'disabled' => $isEdit

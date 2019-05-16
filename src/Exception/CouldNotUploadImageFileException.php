@@ -6,6 +6,7 @@ namespace App\Exception;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+// http://rosstuck.com/formatting-exception-messages
 class CouldNotUploadImageFileException extends \Exception
 {
     const WRONG_ARGUMENT_OR_FILE_EXISTS = 'Wrong argument or file exists, ClientOriginalName: %s, Exception %s';

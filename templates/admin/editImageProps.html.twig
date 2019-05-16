@@ -1,21 +1,19 @@
 {% extends 'form_base.html.twig' %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}
+    {{ title }}
+{% endblock %}
 {% block content_body %}
     <a href="{{ uploaded_asset(uploadForm.vars.data.imageFilePath) }}" target="_blank">
-        <img src="{{ uploadForm.vars.data.imageFilePath|imagine_filter('squared_thumbnail_200')  }}" alt="image file" height="100" class="mt-2 rounded float-right">
+        <img src="{{ uploadForm.vars.data.imageFilePath|imagine_filter('squared_thumbnail_200') }}"
+             alt="the image" height="100" class="mt-2 rounded float-right">
     </a>
-    <h1 class="mt-2 pb-5">{{ title }}</h1>
+    <h1 class="edit-image">{{ title }}</h1>
     {{ form_start(uploadForm) }}
     {% do uploadForm.imageFile.setRendered() %}
     {{ form_row(uploadForm.imageFileTitle) }}
     {{ form_row(uploadForm.imageFileDescription) }}
     {{ form_row(uploadForm.categories) }}
-    <button type="submit" class="btn btn-primary mt-3">Update!</button>
+    <button type="submit" class="btn btn-primary">Update!</button>
     {{ form_end(uploadForm) }}
-    <br><br><a href="{{ path('admin_manage_files') }}">Manage Images</a><br>
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/admin_image_files.js') }}"></script>
 {% endblock %}

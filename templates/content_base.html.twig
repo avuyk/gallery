@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <div class="container">
-        <div class="row">
+{% block main %}
+    <main class="container">
+        {{ include('flash.html.twig') }}
+        <section class="row">
             <div {% block content_body_class %}class="col-sm-12"{% endblock %}>
                 {% block content_body %}{% endblock %}
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 {% endblock %}
