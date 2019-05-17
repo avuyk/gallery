@@ -67,10 +67,10 @@ $( document ).ready(function() {
     // Show to screen readers which page is active
     $activeElement.append('<span class="sr-only">(current)</span>');
 
-    // Put footer down
-    var docHeight = $(window).height();
-    var footerHeight = $('.js-footer').height();
-    var footerTop = $('.js-footer').position().top + footerHeight;
-    if (footerTop < docHeight)
-        $('.js-footer').css('margin-top', 10+ (docHeight - footerTop) + 'px');
+    // Put footer at the bottom, not sticky
+    var $docHeight = $(window).height();
+    var $footerHeight = $('.js-footer').height();
+    var $footerTop = $('.js-footer').position().top + $footerHeight;
+    if ($footerTop < $docHeight)
+        $('.js-footer').css('margin-top', 10+ ($docHeight - $footerTop) + 'px');
 });

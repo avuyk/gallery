@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+     Gallery
+{% endblock %}
+
+
+    {% block menuitemone %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                Categories
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for category in categories %}
+                    <a class="dropdown-item" href="{{ path('show_images_from_category', {
+                        name: category.categoryName
+                    }) }}">{{ category.categoryName}}</a>
+                {% endfor %}
+            </div>
+        </li>
+{% endblock %}
+
+
+
+{% block main %}
+    <main class="container">
+        {{ include('flash.html.twig') }}
+        <h1>Image Gallery</h1>
+        <div class="card-columns">
+            {% for category in categories %}
+                    <section class="card mb-5" id="drwinthrop">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ category.categoryName }}</h2>
+                            <h5 class="card-subtitle">subtitle</h5>
+                            <p class="card-text">blablabla</p>
+                        </div>
+                        <div class="list-group list-group-flush">
+                            <a class="list-group-item" href="#">About this category</a>
+                            <a class="list-group-item" href="#">View all images</a>
+                        </div>
+                    </section>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}
