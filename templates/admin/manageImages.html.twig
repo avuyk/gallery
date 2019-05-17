@@ -2,8 +2,25 @@
 {% block title %}
     {{ title }}
 {% endblock %}
+
+{% block menuitemone %}
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            Categories
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for category in categories %}
+                <a class="dropdown-item" href="{{ path('show_images_from_category', {
+                    categoryName: category.categoryName
+                }) }}">{{ category.categoryName}}</a>
+            {% endfor %}
+        </div>
+    </li>
+{% endblock %}
+
 {% block content_body %}
-    <a href="{{ path('admin_add_file') }}" class="newbutton btn btn-primary float-right">
+    <a href="{{ path('admin_add_image') }}" class="newbutton btn btn-primary float-right">
         New image<span class="fas fa-upload ml-3"></span>
     </a>
     <h1>{{ title }}</h1>
@@ -23,8 +40,8 @@
         {% for imageFile in pagination %}
             <tr class="js-file-item">
                 <td><a href="{{ uploaded_asset(imageFile.imageFilePath) }}" target="_blank">
-                        <img class="article-img" src="{{ imageFile.imageFilePath|imagine_filter('squared_thumbnail_50') }}"
-                             alt="thumbnail">
+                        <img class="article-img" src="{{ asset(imageFile.imageFilePath|imagine_filter('squared_thumbnail_50')) }}"
+                             alt="{{ imageFile.imageFileTitle }}">
                     </a>
                 </td>
                 <td>{{ imageFile.imageFileTitle }}</td>
@@ -35,7 +52,7 @@
                 </td>
                 <td>{{ imageFile.imageFileName }}</td>
                 <td>{{ imageFile.updatedAt|date('d-m-Y') }}</td>
-                <td><a href="{{ path('admin_file_edit', {
+                <td><a href="{{ path('admin_image_edit', {
                         id: imageFile.id
                     }) }}">
                         <span class="fas fa-pencil"></span>
@@ -43,7 +60,7 @@
                     <br>
                     <a href="#"
                         class="js-delete-image"
-                        data-url="{{ path('admin_file_delete', {
+                        data-url="{{ path('admin_image_delete', {
                             id: imageFile.id
                         }) }}"
                     >

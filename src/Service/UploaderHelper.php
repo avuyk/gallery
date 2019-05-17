@@ -3,11 +3,9 @@
 
 namespace App\Service;
 
-
 use App\Entity\ImageFile;
 use App\Exception\CouldNotUploadImageFileException;
 use Gedmo\Sluggable\Util\Urlizer;
-use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 use Psr\Log\LoggerInterface;
@@ -91,6 +89,10 @@ class UploaderHelper
         return $newImageFilename;
     }
 
+    /**
+     * @param string $path
+     * @return string
+     */
     public function getPublicPath(string $path): string
     {
         // part of, and normally handled by the Twig asset() function
@@ -99,6 +101,10 @@ class UploaderHelper
                 ->getBasePath() . '/images/' . $path;
     }
 
+    /**
+     * @param string $pathAndFilename
+     * @throws \Exception
+     */
     public function deleteImageFile(string $pathAndFilename): void
     {
         $filesystem = $this->publicUploadsFilesystem;

@@ -68,9 +68,10 @@ $( document ).ready(function() {
     $activeElement.append('<span class="sr-only">(current)</span>');
 
     // Put footer at the bottom, not sticky
-    var $docHeight = $(window).height();
-    var $footerHeight = $('.js-footer').height();
-    var $footerTop = $('.js-footer').position().top + $footerHeight;
+    var $footer = $('.js-footer');
+    var $docHeight = $(window).outerHeight();
+    var $footerHeight = $footer.outerHeight();
+    var $footerTop = $footer.position().top + $footerHeight;
     if ($footerTop < $docHeight)
-        $('.js-footer').css('margin-top', 10+ ($docHeight - $footerTop) + 'px');
+        $footer.css('margin-top', 10+ ($docHeight - $footerTop) + 'px');
 });

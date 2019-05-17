@@ -26,7 +26,7 @@ class Category
     private $categoryName;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ImageFile", mappedBy="categories")
+     * @ORM\ManyToMany(targetEntity="ImageFile", mappedBy="categories", fetch="EXTRA_LAZY")
      */
     private $ImageFile;
 

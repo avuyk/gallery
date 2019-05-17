@@ -47,32 +47,19 @@ class ImageFileRepository extends ServiceEntityRepository
             ->orderBy('c.updatedAt', 'DESC')
             ;
     }
-    // /**
-    //  * @return File[] Returns an array of File objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?File
+    /**
+     * @param string $categoryName
+     * @return mixed
+     */
+    public function getAllImageFilesInCategory($categoryName)
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->createQueryBuilder('i')
+        ->addSelect('i')
+        ->join('i.categories', 'c')
+        ->where('c.categoryName = :categoryName')
+        ->setParameter('categoryName', $categoryName)
+        ->getQuery()
+        ->getResult();
     }
-    */
 }

@@ -4,40 +4,53 @@
      Gallery
 {% endblock %}
 
-
-    {% block menuitemone %}
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-                Categories
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {% for category in categories %}
-                    <a class="dropdown-item" href="{{ path('show_images_from_category', {
-                        name: category.categoryName
-                    }) }}">{{ category.categoryName}}</a>
-                {% endfor %}
-            </div>
-        </li>
+{% block menuitemone %}
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            Categories
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for category in categories %}
+                <a class="dropdown-item" href="{{ path('show_images_from_category', {
+                    categoryName: category.categoryName
+                }) }}">{{ category.categoryName}}</a>
+            {% endfor %}
+        </div>
+    </li>
 {% endblock %}
-
-
 
 {% block main %}
     <main class="container">
         {{ include('flash.html.twig') }}
         <h1>Image Gallery</h1>
+        <article class="intro">
+            <h4>Choose images from these super interesting categories!</h4>
+            <p>This image gallery was set up to explore the possibilities of Symfony, Twig and Doctrine.
+               The pet logo is a well fed pet, because like this pet project, it has consumed more than it should.
+               Styling of this project is kept to a minimum by use of Bootstrap features.
+
+            </p>
+        </article>
         <div class="card-columns">
             {% for category in categories %}
-                    <section class="card mb-5" id="drwinthrop">
+                    <section class="card mb-5 {{ category.categoryName }}-card">
+                        <a class="list-group-item card-image-link" href="{{ path('show_images_from_category', {
+                            categoryName: category.categoryName
+                        }) }}">
+                            <img class="card-img-top" src="{{ asset('images/'~category.categoryName~'-category.jpg') }}"
+                                 alt="{{ category.categoryName }} image">
+                        </a>
                         <div class="card-body">
-                            <h2 class="card-title">{{ category.categoryName }}</h2>
-                            <h5 class="card-subtitle">subtitle</h5>
-                            <p class="card-text">blablabla</p>
+                            <h2 class="card-title">{{ category.categoryName|upper }}</h2>
+                            <h5 class="card-subtitle">{{ category.imageFile|length }} IMAGES</h5>
+                            <p class="card-text">Some text describing the super interesting and exiting {{ category.categoryName }} category. {{ categoryDescription }}</p>
                         </div>
                         <div class="list-group list-group-flush">
                             <a class="list-group-item" href="#">About this category</a>
-                            <a class="list-group-item" href="#">View all images</a>
+                            <a class="list-group-item" href="{{ path('show_images_from_category', {
+                                categoryName: category.categoryName
+                            }) }}">View all images</a>
                         </div>
                     </section>
             {% endfor %}

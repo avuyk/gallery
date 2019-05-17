@@ -3,8 +3,20 @@ html {
     background-color: rgb(248, 249, 250);
 }
 h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-top: 1rem;
+}
+h2 {
+    font-size: 1.8rem;
+}
+h3 {
+    font-size: 1.5rem;
+}
+h4 {
+    font-size: 1.2rem;
+}
+h5 {
+    font-size: 1.1rem;
 }
 img{
     white-space:pre
@@ -41,7 +53,23 @@ img[alt] {
 a.newbutton {
     margin-top: 1.5rem;
 }
-
+article p, .card-text {
+    font-size: .9rem;
+}
+article.intro {
+    max-width: 40rem;
+    text-align: justify;
+}
+.card-image-link {
+    padding: 0;
+}
+html body main.container section.row div.col-sm-12 {
+    text-align: center;
+}
+picture a img.img-thumbnail {
+    margin: .2rem .1rem;
+    padding: 0;
+}
 /* Footer */
 footer {
     clear: both;

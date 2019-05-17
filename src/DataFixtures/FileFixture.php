@@ -33,7 +33,7 @@ class FileFixture extends BaseFixture
         // Create categories and create images in all categories
         foreach (self::$categoryNames as $categoryName) {
             // get a random number that is biased towards the lower of two given numbers
-            $number = $this->faker->biasedNumberBetween(2, 12, function ($x) {
+            $number = $this->faker->biasedNumberBetween(10, 25, function ($x) {
                 return 1 - sqrt($x);
             });
 

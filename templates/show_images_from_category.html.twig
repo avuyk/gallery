@@ -3,6 +3,30 @@
 {% block title %}
 {{ title }}
 {% endblock %}
+
+{% block menuitemone %}
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            Categories
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for category in categories %}
+                <a class="dropdown-item" href="{{ path('show_images_from_category', {
+                    categoryName: category.categoryName
+                }) }}">{{ category.categoryName}}</a>
+            {% endfor %}
+        </div>
+    </li>
+{% endblock %}
+
 {% block content_body %}
-    <p> {{ name }}</p>
+    <h1>{{ categoryName|title }} images</h1>
+    {% for image in allImagesInCategory %}
+        <picture>
+            <a href="{{ uploaded_asset(image.imageFilePath) }}" target="_blank">
+                <img src="{{ asset(image.imageFilePath|imagine_filter('thumbnail_100_Asize')) }}" alt="{{ image.imageFileTitle }}" class="img-thumbnail">
+            </a>
+        </picture>
+    {% endfor %}
 {% endblock %}
