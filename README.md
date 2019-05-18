@@ -1,20 +1,20 @@
 # Gallery
 WIP **Simple gallery to show image files**
 
+This image gallery was set up to explore and exercise possibilities of Symfony, Twig and Doctrine. The project logo is a well fed pet, because, just like this pet project, it has consumed more resources than it should have. Styling of this project is kept to a minimum by use of Bootstrap features. With this ongoing project I like to develop and exercise some new skills. Next is the implementation of security and user management. 
+
 **Overview**
 
-* On the home page a category listing.
-* This category listing is linked to category pages.
-* The category pages are filled with images.
-* The images are linked to full size show pages.
-* In the admin section, images and users can be managed.
+* On the home page a linked category listing.
+* Linked to show pages filled with images.
+* In the admin section, images can be managed.
 
-**Some features**
+**Features so far**
 * Built with Symfony 4
-* Auto fill database with dummy data for development and showcasing.
-* Admin and user login required.
-* Search on keywords.
-* Bootstrapped for all devices.
+* Custom Command, Exceptions, FormType, Repository queries, Services and Twig extension.
+* Fixtures fill the database with dummy data.
+* Implementation of a Doctrine many-to-many relationship.
+* JQuery ajax calls to an API endpoint on 'manage images' page.
 
 **Getting started**
 

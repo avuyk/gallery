@@ -21,8 +21,7 @@ class AdminManageImagesController extends AbstractController
         Request $request,
         PaginationHelper $paginationHelper,
         CategoryRepository $categoryRepository
-    )
-    {
+    ) {
         $categories = $categoryRepository->findAll();
         $pagination = $paginationHelper->queryAndPaginate($request, 10);
 
@@ -33,4 +32,3 @@ class AdminManageImagesController extends AbstractController
         ]);
     }
 }
-

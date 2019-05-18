@@ -11,7 +11,9 @@ use App\Service\UploaderHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminAddImageController extends AbstractController
@@ -35,7 +37,7 @@ class AdminAddImageController extends AbstractController
      * @param Request $request
      * @param UploaderHelper $uploaderHelper
      * @param CategoryRepository $categoryRepository
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function new(
         Request $request,
@@ -59,18 +61,21 @@ class AdminAddImageController extends AbstractController
                     $this->logger->error($exception->getMessage());
                     $this->addFlash('error', 'Could not upload file, please try again later.');
                 }
+                if ($newFilename) {
+                    /** @var ImageFile $file */
+                    $file = $form->getData();
+                    $file->setImageFileName($newFilename);
+                    $file->setImageFileTitle($uploaderHelper->getImageFileTitle($uploadedFile, $file));
 
-                /** @var ImageFile $file */
-                $file = $form->getData();
-                $file->setImageFileName($newFilename);
-                $file->setImageFileTitle($uploaderHelper->getImageFileTitle($uploadedFile, $file));
-
-                $this->addFlash('success', 'Thanks for your image!');
-                try {
-                    $this->imageFileRepository->save($file);
-                } catch (CouldNotSaveImageFileException $exception) {
-                    $this->logger->error('could not save image, exception: ' . $exception->getMessage());
-                    $this->addFlash('error', 'Could not create new image, please try again later!');
+                    $this->addFlash('success', 'Thanks for your image!');
+                    try {
+                        $this->imageFileRepository->save($file);
+                    } catch (CouldNotSaveImageFileException $exception) {
+                        $this->logger->error('could not save image, exception: ' . $exception->getMessage());
+                        $this->addFlash('error', 'Could not create new image, please try again later!');
+                    }
+                } else {
+                    $this->logger->error('$newFilename not created.');
                 }
             }
             return ($this->redirectToRoute('admin_manage_files'));

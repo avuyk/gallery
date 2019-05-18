@@ -3,7 +3,6 @@ namespace App\Controller;
 
 use App\Entity\ImageFile;
 use App\Exception\CouldNotSaveImageFileException;
-use App\Exception\CouldNotUploadImageFileException;
 use App\Form\FileUploadFormType;
 use App\Repository\CategoryRepository;
 use App\Repository\ImageFileRepository;
@@ -11,7 +10,7 @@ use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,7 +26,7 @@ class AdminEditImagePropsController extends AbstractController
      * @param ImageFileRepository $imageFileRepository
      * @param LoggerInterface $logger
      * @param CategoryRepository $categoryRepository
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
     public function edit(
         ImageFile $file,
@@ -68,4 +67,3 @@ class AdminEditImagePropsController extends AbstractController
         ]);
     }
 }
-

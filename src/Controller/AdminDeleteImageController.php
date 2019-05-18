@@ -25,7 +25,6 @@ class AdminDeleteImageController extends AbstractController
         EntityManagerInterface $entityManager,
         LoggerInterface $logger
     ) {
-        //$this->denyAccessUnlessGranted('MANAGE', $imageFile);
         $entityManager->beginTransaction();
         try {
             $entityManager->remove($imageFile);
@@ -40,4 +39,3 @@ class AdminDeleteImageController extends AbstractController
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 }
-

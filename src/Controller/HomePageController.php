@@ -14,7 +14,7 @@ class HomePageController extends AbstractController
 
     public function __construct()
     {
-        $this->faker= Factory::create();
+        $this->faker = Factory::create();
     }
 
     /**
@@ -24,7 +24,7 @@ class HomePageController extends AbstractController
      */
     public function homepage(CategoryRepository $categoryRepository)
     {
-        $categoryDescription = $this->faker->sentence(23,true);
+        $categoryDescription = $this->faker->sentence(23, true);
         $categories = $categoryRepository->findAll();
         return $this->render('home.html.twig', [
             'categories' => $categories,

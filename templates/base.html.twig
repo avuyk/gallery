@@ -36,15 +36,15 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_homepage') }}">Home</a>
+                        <a class="rounded nav-link" href="{{ path('app_homepage') }}">Home</a>
                     </li>
                     {% block menuitemone %}{% endblock %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle rounded" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Admin
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Admin home</a>
+                            <a class="dropdown-item disabled" href="#">Admin home</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ path('admin_add_image') }}">New image</a>
                             <a class="dropdown-item" href="{{ path('admin_manage_files') }}">Manage images</a>
